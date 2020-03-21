@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;ShipwreckStub.java&apos; to &apos;das-boot/src/main/java/my.home.controller&apos;&#x0D;&#x0A;- Original project: &apos;das-boot&apos;&#x0D;&#x0A;- Destination element: &apos;das-boot/src/main/java/my.home.controller&apos;&#x0D;&#x0A;- Original element: &apos;my.home.repository.ShipwreckStub.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src\/main\/java&lt;my.home.controller" element1="/src\/main\/java&lt;my.home.repository{ShipwreckStub.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1560004904620" units="1" version="1.0"/>
+</session>
