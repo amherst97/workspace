@@ -1,6 +1,5 @@
 package myspringboot.myspringbootweb.controller;
 
-import javafx.concurrent.Task;
 import myspringboot.myspringbootweb.model.Family;
 import myspringboot.myspringbootweb.model.TaskList;
 import myspringboot.myspringbootweb.service.FamilyRepository;
