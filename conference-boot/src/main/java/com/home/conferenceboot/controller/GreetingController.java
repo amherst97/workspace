@@ -9,7 +9,7 @@ import java.util.Map;
 public class GreetingController {
     @GetMapping("greetings")
     public String greeting(Map<String, Object> model) {
-        model.put("message", "Hello Dansong");
+        model.put("message", "Hello Michael Chen!!");
         // Looking for JPS file name with greeting
         return "greeting";
     }
