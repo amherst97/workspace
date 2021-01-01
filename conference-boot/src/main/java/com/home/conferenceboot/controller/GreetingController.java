@@ -13,4 +13,11 @@ public class GreetingController {
         // Looking for JPS file name with greeting
         return "greeting";
     }
+
+    @GetMapping("thyme")
+    public String thyme(Map<String, Object> model) {
+        model.put("message", "Hello Thymeleaf!!");
+        // Looking for JPS file name with greeting
+        return "thyme";
+    }
 }
