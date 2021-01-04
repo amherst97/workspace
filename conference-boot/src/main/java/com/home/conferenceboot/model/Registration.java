@@ -1,6 +1,12 @@
 package com.home.conferenceboot.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Registration {
+
+    @NotEmpty
+    private String name;
+
     public String getName() {
         return name;
     }
@@ -8,7 +14,4 @@ public class Registration {
     public void setName(String name) {
         this.name = name;
     }
-
-    private String name;
-
 }
