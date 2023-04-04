@@ -2,5 +2,23 @@
 <workingSetManager>
 <workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1547306840858_0" label="Java Main Sources" name="Java Main Sources"/>
 <workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1547306840871_1" label="Java Test Sources" name="Java Test Sources"/>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1667149752838_3" label="components" name="components">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/components" type="4"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1667150463219_4" label="camel" name="camel">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/camel-parent" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/camel-quickfix" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/camel" type="4"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1673126509349_5" label="parent" name="parent">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/parent" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/appendixA" type="4"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1673127394778_6" label="chapter3" name="chapter3">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/chapter3" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/chapter3-transform" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/chapter3-converter" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/chapter3-order" type="4"/>
+</workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1548602042378_2" label="Window Working Set" name="Aggregate for window 1548602042377"/>
 </workingSetManager>

@@ -2,5 +2,9 @@
 <aop-reference-model>
 <aop-project name="WebDemo"/>
 <aop-project name="just-gif-it"/>
+<aop-project name="camel-microservice-b"/>
+<aop-project name="camel-microservice-a"/>
+<aop-project name="camel-quickfix"/>
 <aop-project name="das-boot"/>
+<aop-project name="conference-boot"/>
 </aop-reference-model>

@@ -33,6 +33,12 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\dev\workspace\camel-main\camel-spring-boot\02.projects"/>
+			<item value="C:\dev\Camel"/>
+			<item value="C:\dev\Camel\components"/>
+			<item value="C:\dev\Camel\components\camel-quickfix"/>
+			<item value="C:\dev\workspace\conference-boot"/>
+			<item value="C:\dev\workspace\WebDemo\WebDemo"/>
 			<item value="C:\dev\workspace\just-gif-it-master"/>
 			<item value="C:\dev\workspace\WebDemo"/>
 		</list>

@@ -41,11 +41,15 @@
 		<item value="org.eclipse.jst.ws.axis2tools.feature:1.1.301.v201802222200"/>
 		<item value="org.eclipse.jst.ws.cxf.feature:1.1.400.v201810250809"/>
 		<item value="org.eclipse.jst.ws.jaxws.feature:1.2.500.v201810250809"/>
-		<item value="org.eclipse.m2e.feature:1.10.0.20181127-2120"/>
-		<item value="org.eclipse.m2e.logback.feature:1.10.0.20181127-2120"/>
-		<item value="org.eclipse.m2e.wtp.feature:1.4.1.20181128-2152"/>
-		<item value="org.eclipse.m2e.wtp.jaxrs.feature:1.4.1.20181128-2152"/>
-		<item value="org.eclipse.m2e.wtp.jsf.feature:1.4.1.20181128-2152"/>
+		<item value="org.eclipse.m2e.feature:1.12.0.20190529-1916"/>
+		<item value="org.eclipse.m2e.logback.feature:1.12.0.20190529-1916"/>
+		<item value="org.eclipse.m2e.wtp.feature:1.4.3.20191209-1849"/>
+		<item value="org.eclipse.m2e.wtp.jaxrs.feature.source:1.4.3.20191209-1849"/>
+		<item value="org.eclipse.m2e.wtp.jaxrs.feature:1.4.3.20191209-1849"/>
+		<item value="org.eclipse.m2e.wtp.jpa.feature.source:1.4.3.20191209-1849"/>
+		<item value="org.eclipse.m2e.wtp.jpa.feature:1.4.3.20191209-1849"/>
+		<item value="org.eclipse.m2e.wtp.jsf.feature.source:1.4.3.20191209-1849"/>
+		<item value="org.eclipse.m2e.wtp.jsf.feature:1.4.3.20191209-1849"/>
 		<item value="org.eclipse.mylyn.bugzilla_feature:3.24.2.v20180905-0003"/>
 		<item value="org.eclipse.mylyn.commons.identity:1.16.0.v20180904-2231"/>
 		<item value="org.eclipse.mylyn.commons.notifications:1.16.0.v20180904-2231"/>
@@ -82,7 +86,7 @@
 		<item value="org.jboss.tools.m2e.wro4j.feature:1.1.0.201406251020"/>
 		<item value="org.sonatype.m2e.buildhelper.feature:0.15.0.201207090124"/>
 		<item value="org.sonatype.m2e.egit.feature:0.15.1.201806191431"/>
-		<item value="org.sonatype.m2e.mavenarchiver.feature:0.17.2.201606141937-signed-20160830073346"/>
+		<item value="org.sonatype.m2e.mavenarchiver.feature:0.17.5.202002191804"/>
 		<item value="org.springframework.ide.eclipse.aeri.feature:3.9.7.201812201020-RELEASE"/>
 		<item value="org.springframework.ide.eclipse.ajdt.feature:3.9.7.201812201020-RELEASE"/>
 		<item value="org.springframework.ide.eclipse.aop.feature:3.9.7.201812201020-RELEASE"/>
@@ -102,4 +106,18 @@
 		<item value="org.springsource.sts.package:3.9.7.201812201326-RELEASE-e410"/>
 		<item value="org.springsource.sts:3.9.7.201812201326-RELEASE"/>
 	</list>
+	<section name="CleanDialogSettings">
+		<item value="500" key="DIALOG_WIDTH"/>
+		<item value="true" key="TOGGLE_SELECTED"/>
+		<item value="402" key="DIALOG_HEIGHT"/>
+		<item value="1470" key="DIALOG_X_ORIGIN"/>
+		<item value="428" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="SaveAsDialogSettings">
+		<item value="525" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="580" key="DIALOG_HEIGHT"/>
+		<item value="796" key="DIALOG_X_ORIGIN"/>
+		<item value="313" key="DIALOG_Y_ORIGIN"/>
+	</section>
 </section>

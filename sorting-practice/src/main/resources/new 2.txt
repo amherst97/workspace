@@ -1,0 +1,28 @@
+class Initializer {
+
+	private List<String> properties; 
+	private List<String> propertes2;
+	private int size;
+		
+	protected void initialize() {
+		// initialize propertes
+		propeties2 = new UnmodifiableList(propertes);
+	}
+	
+	public List<String> getProperties() {
+		return properties2;
+	}
+
+	
+	
+}
+
+
+class UnmodifiableList implements List {
+	@Override
+	public void add(String s) {
+		throws new UnsupportedOperationException;
+	}
+
+	
+}
