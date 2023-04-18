@@ -4,7 +4,7 @@
  * the strength of the ith spell and potions[j] represents the 
  * strength of the jth potion.
  */
-package Numbers;
+package numbers;
 
 import java.util.Arrays;
 

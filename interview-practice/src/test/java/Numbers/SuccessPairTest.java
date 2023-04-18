@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import numbers.SuccessPair;
+
 public class SuccessPairTest {
 
 	@Test

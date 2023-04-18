@@ -1,4 +1,4 @@
-package Numbers;
+package numbers;
 
 public class VerifyPower2 {
 	public static boolean isPower2(int n) {
