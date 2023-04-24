@@ -4,6 +4,11 @@
 <aop-project name="just-gif-it"/>
 <aop-project name="camel-microservice-b"/>
 <aop-project name="camel-microservice-a"/>
+<aop-project name="ride_tracker">
+<aspect-definition advice-class-name="org.springframework.transaction.interceptor.TransactionInterceptor" advice-method-name="invoke" advice-method-parameter-types="org.aopalliance.intercept.MethodInvocation" advice-type="AROUND" aspect-end-line-number="27" aspect-name="org.springframework.transaction.interceptor.TransactionInterceptor#ride_tracker#src/main/resources/jdbc-config.xml#27" aspect-start-line-number="27" factory-id="org.springframework.ide.eclipse.aop.core.javaAdvisorDefinitionElementFactory" file="/ride_tracker/src/main/resources/jdbc-config.xml" pointcut-expression="(@within(org.springframework.transaction.annotation.Transactional) || @annotation(org.springframework.transaction.annotation.Transactional)) &amp;&amp; execution(* *..*(..))" proxy-target-class="false">
+<aop-reference advice-type="AROUND" bean="1:BeansModel|2:ride_tracker|3:src/main/resources/jdbc-config.xml|7:beans:11|8:rideService:11" bean-file="/ride_tracker/src/main/resources/jdbc-config.xml" bean-start-line="11" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/ride_tracker/src/main/resources/jdbc-config.xml" source="=ride_tracker/C:\/Users\/User\/.m2\/repository\/org\/springframework\/spring-tx\/5.2.7.RELEASE\/spring-tx-5.2.7.RELEASE.jar&lt;org.springframework.transaction.interceptor(TransactionInterceptor.class[TransactionInterceptor~invoke~Lorg.aopalliance.intercept.MethodInvocation;" source-start-line="-1" target="=ride_tracker/src\/main\/java&lt;com.pluralsight.service{RideServiceImpl.java[RideServiceImpl~batch" target-start-line="43"/>
+</aspect-definition>
+</aop-project>
 <aop-project name="camel-quickfix"/>
 <aop-project name="das-boot"/>
 <aop-project name="conference-boot"/>

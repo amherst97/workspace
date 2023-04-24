@@ -21,11 +21,6 @@ public class Point implements Geometry {
 	}
 
 	@Override
-	public void display() {
-		System.out.printf("(%d, %d)", x, y);
-	}
-
-	@Override
 	public List<Point> coordinates() {
 		return Arrays.asList(this);
 	}

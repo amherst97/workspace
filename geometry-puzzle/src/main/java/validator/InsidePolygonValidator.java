@@ -2,11 +2,11 @@ package validator;
 
 import java.util.Arrays;
 
-import shape.MultiPoint;
+import shape.Polygon;
 import shape.Point;
 
 public class InsidePolygonValidator {
-	public boolean validate(MultiPoint polygon, Point p) {
+	public boolean validate(Polygon polygon, Point p) {
 		int size = polygon.size();
 		int a, b, c, d;
 		

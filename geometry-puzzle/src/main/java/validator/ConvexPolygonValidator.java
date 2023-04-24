@@ -1,12 +1,12 @@
 package validator;
 
-import shape.MultiPoint;
+import shape.Polygon;
 import shape.Point;
 
 
 public class ConvexPolygonValidator implements ShapeValidator {
 	@Override
-	public boolean validate(MultiPoint polygon) {
+	public boolean validate(Polygon polygon) {
 		if (polygon.size() < 3) return false;
 
 		  Point p;

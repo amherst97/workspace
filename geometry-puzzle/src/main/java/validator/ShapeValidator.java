@@ -1,8 +1,8 @@
 package validator;
 
-import shape.MultiPoint;
+import shape.Polygon;
 
 @FunctionalInterface
 public interface ShapeValidator {
-	boolean validate(final MultiPoint shape);
+	boolean validate(final Polygon shape);
 }

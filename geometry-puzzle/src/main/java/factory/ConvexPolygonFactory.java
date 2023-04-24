@@ -6,22 +6,27 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import shape.MultiPoint;
+import shape.Polygon;
 import shape.Point;
 
-public class ConvexPolygonFactory implements ShapeFactory {
+public class ConvexPolygonFactory implements GeometryFactory {
 	private static final Random RAND = new Random();
+	private static final int X_SIZE = 100;
+	private static final int Y_SIZE = 100;
 	
-	public MultiPoint create() {
-		int n = RAND.nextInt(6) + 3; // range 3 to 8 - should be in config 
-		
-		 // Generate two lists of random X and Y coordinates
-        List<Integer> xPool = new ArrayList<>(n);
-        List<Integer> yPool = new ArrayList<>(n);
+	public Polygon create() {
+		int n = RAND.nextInt(6) + 3; // range 3 to 8 - should be in config 		
+		return new Polygon(generateConvexPolygon(n, X_SIZE, Y_SIZE));
+	}
+	
+	public List<Point> generateConvexPolygon(int size, int rangeX, int rangeY) {
+        // Generate two lists of random X and Y coordinates
+        List<Integer> xPool = new ArrayList<>(size);
+        List<Integer> yPool = new ArrayList<>(size);
 
-        for (int i = 0; i < n; i++) {
-            xPool.add(RAND.nextInt(10000));
-            yPool.add(RAND.nextInt(10000));
+        for (int i = 0; i < size; i++) {
+            xPool.add(RAND.nextInt(100));
+            yPool.add(RAND.nextInt(100));
         }
 
         // Sort them
@@ -30,17 +35,17 @@ public class ConvexPolygonFactory implements ShapeFactory {
 
         // Isolate the extreme points
         Integer minX = xPool.get(0);
-        Integer maxX = xPool.get(n - 1);
+        Integer maxX = xPool.get(size - 1);
         Integer minY = yPool.get(0);
-        Integer maxY = yPool.get(n - 1);
+        Integer maxY = yPool.get(size - 1);
 
         // Divide the interior points into two chains & Extract the vector components
-        List<Integer> xVec = new ArrayList<>(n);
-        List<Integer> yVec = new ArrayList<>(n);
+        List<Integer> xVec = new ArrayList<>(size);
+        List<Integer> yVec = new ArrayList<>(size);
 
         int lastTop = minX, lastBot = minX;
 
-        for (int i = 1; i < n - 1; i++) {
+        for (int i = 1; i < size - 1; i++) {
             int x = xPool.get(i);
 
             if (RAND.nextBoolean()) {
@@ -57,7 +62,7 @@ public class ConvexPolygonFactory implements ShapeFactory {
 
         int lastLeft = minY, lastRight = minY;
 
-        for (int i = 1; i < n - 1; i++) {
+        for (int i = 1; i < size - 1; i++) {
             int y = yPool.get(i);
 
             if (RAND.nextBoolean()) {
@@ -76,9 +81,9 @@ public class ConvexPolygonFactory implements ShapeFactory {
         Collections.shuffle(yVec);
 
         // Combine the paired up components into vectors
-        List<Point> vec = new ArrayList<>(n);
+        List<Point> vec = new ArrayList<>(size);
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < size; i++) {
             vec.add(new Point(xVec.get(i), yVec.get(i)));
         }
 
@@ -89,9 +94,9 @@ public class ConvexPolygonFactory implements ShapeFactory {
         int x = 0, y = 0;
         int minPolygonX = 0;
         int minPolygonY = 0;
-        List<Point> points = new ArrayList<>(n);
+        List<Point> points = new ArrayList<>(size);
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < size; i++) {
             points.add(new Point(x, y));
 
             x += vec.get(i).getX();
@@ -105,11 +110,11 @@ public class ConvexPolygonFactory implements ShapeFactory {
         int xShift = minX - minPolygonX;
         int yShift = minY - minPolygonY;
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < size; i++) {
             Point p = points.get(i);
-            points.add(i, new Point(p.getX() + xShift, p.getY() + yShift));
+            points.set(i, new Point(p.getX() + xShift, p.getY() + yShift));
         }
 
-        return new MultiPoint(points);
-	}
+        return points;
+    }
 }
