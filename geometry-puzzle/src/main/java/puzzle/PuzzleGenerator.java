@@ -101,8 +101,7 @@ public class PuzzleGenerator {
 				} else {
 					// token start with #
 					if (isFinalized) {
-						// exit game
-						display.wrongInput();
+						// exit game				
 						return;
 						
 					} else {
