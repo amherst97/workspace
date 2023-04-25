@@ -1,19 +1,24 @@
 package validator;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import shape.Polygon;
 import shape.Point;
+import shape.Polygon;
 
 class ConvexPolygonValidatorTest {
 
-	ConvexPolygonValidator validator = new ConvexPolygonValidator();
+	private ConvexPolygonValidator validator;
+	
+	@BeforeEach
+	void setUp() {
+		validator = new ConvexPolygonValidator();
+	}
 
 	@Test
 	void testConvex() {

@@ -1,5 +1,7 @@
 package factory;
 
-public interface GeometryFactory {
+import shape.Geometry;
 
+public interface GeometryFactory {
+	public Geometry create();
 }

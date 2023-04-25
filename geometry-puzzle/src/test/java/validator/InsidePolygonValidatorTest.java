@@ -33,16 +33,23 @@ class InsidePolygonValidatorTest {
 		Point p = new Point(6, 2);
 		assertFalse(validator.validate(polygon, p));
 	}
-	
+
+	/*
+	 * For point on the line, consider it is inside 
+	 */
 	@Test
 	public void testOnEdgeOfPolygon() {
 		Point p = new Point(3, 4);
-		assertFalse(validator.validate(polygon, p));
+		assertTrue(validator.validate(polygon, p));
 	}
 	
+	/*
+	 * For point coincide with existing vertex, 
+	 * consider it is inside 
+	 */
 	@Test void testOnExistingPoint() {
 		Point p = new Point(6, 7);
-		assertFalse(validator.validate(polygon, p));
+		assertTrue(validator.validate(polygon, p));
 	}
 
 }

@@ -48,4 +48,9 @@ public class Point implements Geometry {
 	public int hashCode() {
 		return x * 31 + y;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("(%d,%d)", x, y);
+	}
 }

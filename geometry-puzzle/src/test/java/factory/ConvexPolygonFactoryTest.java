@@ -9,12 +9,15 @@ import shape.Polygon;
 import validator.ConvexPolygonValidator;
 
 class ConvexPolygonFactoryTest {
+	private static int MAX_COORDINATE = 100;
+	private static int MIN_EDGES = 3;
+	private static int MAX_EDGES = 8;
 	private ConvexPolygonFactory convexPolygonFactory;
 	private ConvexPolygonValidator convexValidator;
 	
 	@BeforeEach
 	public void setUp() {
-		convexPolygonFactory = new ConvexPolygonFactory();
+		convexPolygonFactory = new ConvexPolygonFactory(MAX_COORDINATE, MIN_EDGES, MAX_EDGES);		
 		convexValidator = new ConvexPolygonValidator();		
 	}
 
@@ -27,7 +30,16 @@ class ConvexPolygonFactoryTest {
 	@Test
 	void testSizeWithinRange() {
 		Polygon polygon = convexPolygonFactory.create();
-		assertTrue(polygon.size() >= 3 && polygon.size() <= 8);
+		assertTrue(polygon.size() >= MIN_EDGES && polygon.size() <= MAX_EDGES);
 	}
-
+	
+	@Test
+	void testCoordinateWithinRange() {
+		Polygon polygon = convexPolygonFactory.create();
+		polygon.coordinates().stream().forEach(p -> assertTrue(
+				p.getX() >= 0 
+				&& p.getX() <= MAX_COORDINATE 
+				&& p.getY() >= 0 
+				&& p.getY() <= MAX_COORDINATE));
+	}
 }

@@ -5,85 +5,68 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-import shape.Polygon;
 import shape.Point;
-
+import shape.Polygon;
+/*
+ * Create a random Polygon with number of edges 
+ * between minEdges and maxEdges, and in a 2-D plane
+ * with coordinate range between [0, maxCoordinate]
+ */
 public class ConvexPolygonFactory implements GeometryFactory {
 	private static final Random RAND = new Random();
-	private static final int X_SIZE = 100;
-	private static final int Y_SIZE = 100;
+	private final int maxCoordinate;
+	private final int minEdges;
+	private final int maxEdges;
 	
+	/**
+	 * @param coordinate range between 0 to maxCoordinate
+	 * @param minimum number of edges
+	 * @param maximum number of edges
+	 */
+	public ConvexPolygonFactory(int maxCoordinate, int minEdges, int maxEdges) {
+		this.maxCoordinate = maxCoordinate;
+        this.minEdges = minEdges;
+        this.maxEdges = maxEdges;
+	 }
+	
+	@Override
 	public Polygon create() {
-		int n = RAND.nextInt(6) + 3; // range 3 to 8 - should be in config 		
-		return new Polygon(generateConvexPolygon(n, X_SIZE, Y_SIZE));
+		int numOfEdges = RAND.nextInt(maxEdges - minEdges + 1) + minEdges; 	
+		return new Polygon(generateConvexPoints(numOfEdges));
 	}
-	
-	public List<Point> generateConvexPolygon(int size, int rangeX, int rangeY) {
-        // Generate two lists of random X and Y coordinates
-        List<Integer> xPool = new ArrayList<>(size);
-        List<Integer> yPool = new ArrayList<>(size);
-
-        for (int i = 0; i < size; i++) {
-            xPool.add(RAND.nextInt(100));
-            yPool.add(RAND.nextInt(100));
-        }
-
+		
+	/**
+	 * @param number of points being generated
+	 * @return list of points for a convex polygon
+	 */
+	public List<Point> generateConvexPoints(int numEdges) {
+        // Generate two lists of random X and Y coordinates        
+        List<Integer> xPool = generateRandomList(numEdges);
+        List<Integer> yPool = generateRandomList(numEdges);
+        
         // Sort them
         Collections.sort(xPool);
         Collections.sort(yPool);
 
         // Isolate the extreme points
         Integer minX = xPool.get(0);
-        Integer maxX = xPool.get(size - 1);
+        Integer maxX = xPool.get(numEdges - 1);
         Integer minY = yPool.get(0);
-        Integer maxY = yPool.get(size - 1);
+        Integer maxY = yPool.get(numEdges - 1);
 
         // Divide the interior points into two chains & Extract the vector components
-        List<Integer> xVec = new ArrayList<>(size);
-        List<Integer> yVec = new ArrayList<>(size);
-
-        int lastTop = minX, lastBot = minX;
-
-        for (int i = 1; i < size - 1; i++) {
-            int x = xPool.get(i);
-
-            if (RAND.nextBoolean()) {
-                xVec.add(x - lastTop);
-                lastTop = x;
-            } else {
-                xVec.add(lastBot - x);
-                lastBot = x;
-            }
-        }
-
-        xVec.add(maxX - lastTop);
-        xVec.add(lastBot - maxX);
-
-        int lastLeft = minY, lastRight = minY;
-
-        for (int i = 1; i < size - 1; i++) {
-            int y = yPool.get(i);
-
-            if (RAND.nextBoolean()) {
-                yVec.add(y - lastLeft);
-                lastLeft = y;
-            } else {
-                yVec.add(lastRight - y);
-                lastRight = y;
-            }
-        }
-
-        yVec.add(maxY - lastLeft);
-        yVec.add(lastRight - maxY);
+    	List<Integer> xVec = populateComponent(numEdges, minX, maxX, xPool);
+		List<Integer> yVec = populateComponent(numEdges, minY, maxY, yPool);
 
         // Randomly pair up the X- and Y-components
         Collections.shuffle(yVec);
 
         // Combine the paired up components into vectors
-        List<Point> vec = new ArrayList<>(size);
+        List<Point> vec = new ArrayList<>(numEdges);
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < numEdges; i++) {
             vec.add(new Point(xVec.get(i), yVec.get(i)));
         }
 
@@ -94,9 +77,9 @@ public class ConvexPolygonFactory implements GeometryFactory {
         int x = 0, y = 0;
         int minPolygonX = 0;
         int minPolygonY = 0;
-        List<Point> points = new ArrayList<>(size);
+        List<Point> points = new ArrayList<>(numEdges);
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < numEdges; i++) {
             points.add(new Point(x, y));
 
             x += vec.get(i).getX();
@@ -110,11 +93,41 @@ public class ConvexPolygonFactory implements GeometryFactory {
         int xShift = minX - minPolygonX;
         int yShift = minY - minPolygonY;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < numEdges; i++) {
             Point p = points.get(i);
             points.set(i, new Point(p.getX() + xShift, p.getY() + yShift));
         }
 
         return points;
     }
+	
+	private List<Integer> populateComponent(int numEdges, int min, int max, List<Integer> pool) {
+		List<Integer> vec = new ArrayList<>(numEdges);
+
+		// int lastLeft = min, lastRight = min;
+		int lastTop = min, lastBot = min;
+
+		for (int i = 1; i < numEdges - 1; i++) {
+			int x = pool.get(i);
+
+			if (RAND.nextBoolean()) {
+				vec.add(x - lastTop);
+				lastTop = x;
+			} 
+			else {
+				vec.add(lastBot - x);
+				lastBot = x;
+			}
+		}
+
+		vec.add(max - lastTop);
+		vec.add(lastBot - max);
+
+		return vec;
+	}
+	
+	private List<Integer> generateRandomList(int size) {
+		return RAND.ints(size, 0, maxCoordinate).boxed().collect(Collectors.toList());
+		
+	}
 }

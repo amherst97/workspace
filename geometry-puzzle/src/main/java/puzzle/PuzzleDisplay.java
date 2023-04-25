@@ -4,7 +4,10 @@ import java.io.PrintStream;
 
 import shape.Point;
 import shape.Polygon;
-
+/*
+ * Helper class to handle all the output to System.out so to 
+ * avoid clutter the PuzzleGenerator class
+ */
 public class PuzzleDisplay {
 	
 	private PrintStream printStream;
@@ -16,32 +19,62 @@ public class PuzzleDisplay {
 	public void showPolygon(Polygon polygon) {
 		int i = 0;
 		for (Point p : polygon.coordinates()) {
-			System.out.printf("%d:(%d,%d)\n", ++i, p.getX(), p.getY());
+			printStream.printf("%d:(%d,%d)\n", ++i, p.getX(), p.getY());
 		}
 	}
 	
-	public void promptNewCoordinate() {
+	public void wrongInput() {
+		printStream.printf("Please input required data and retry\n");
+	}
+	
+	public void promptInputPointBeforeValidShape(int newSize) {
+		printStream.printf("Please enter coordinates %d in x y format\n", newSize);
+	}
+	
+	public void promptTestCoordinate() {
 		printStream.printf("Please key in test coordinates in x y format or enter "
 				+ "# to quit the game\n");
 	}
 	
-	public void promptFinalShape(Polygon polygon) {
-		printStream.printf("You final shape is\n");
+	public void promptRandomShape(Polygon polygon) {
+		printStream.printf("Your random shape is\n");
 		showPolygon(polygon);
+		printStream.printf("\n");
+		promptTestCoordinate();
+	}
+	
+	public void promptIncompleteShape(Polygon polygon) {
+		printStream.printf("You current shape is incomplete\n");
+		showPolygon(polygon);
+		printStream.printf("Please enter coordinates %d in x y format\n", polygon.size() + 1);
+	}
+	
+	public void promptCompleteShape(Polygon polygon) {
+		printStream.printf("You current shape is valid and is complete\n");
+		showPolygon(polygon);
+		printStream.printf("Please enter # to finalize your shape or enter coordinates %d in x y format\n", 
+				polygon.size() + 1);		
+	}
+	
+	public void promptFinalShape(Polygon polygon) {
+		printStream.printf("Your finalized shape is\n");
+		showPolygon(polygon);
+		printStream.printf("\n");
 	}
 	
 	public void promptInvalidPoint(Point point) {
 		printStream.printf("New coordinates() is invalid!!!\n" +
-				"Not adding new coordinates to the current shape.\n", point.getX(), point.getY());			
+				"Not adding new coordinates to the current shape.\n\n", point.getX(), point.getY());			
 	}
  	
-	public void promptCheckResult(boolean isWithin, Point point) {		
+	public void promptCheckResult(boolean isWithin, Point point, Polygon polygon) {		
+		promptFinalShape(polygon);
 		if (isWithin) 
-			printStream.printf("\nCoordinates (%d,%d) is within your finalzed shape\n", point.getX(), point.getY());			
+			printStream.printf("Coordinates (%d,%d) is within your finalized shape\n", point.getX(), point.getY());			
 		else
-			printStream.printf("\nSorry, coordinates (%d,%d) is outside of your finalized shape\n", point.getX(), point.getY()) ;		
+			printStream.printf("Sorry, coordinates (%d,%d) is outside of your finalized shape\n", point.getX(), point.getY()) ;		
 		
-		promptNewCoordinate();
+		promptTestCoordinate();
 	}
 	
 	public void promptGameEnd() {
