@@ -6,7 +6,9 @@ import shape.Point;
 /*
  * 
  */
-public class InsidePolygonValidator {
+public class InsidePolygonValidator implements Validator {
+	
+	@Override
     public boolean validate(Polygon polygon, Point p) {
         int numVertices = polygon.size();
 

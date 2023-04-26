@@ -1,14 +1,14 @@
 package puzzle;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import factory.ConvexPolygonFactory;
 import shape.Point;
 import shape.Polygon;
-import validator.ConvexPolygonValidator;
-import validator.InsidePolygonValidator;
+import validator.Validator;
 
 /*
  * Generates puzzles consisting of polygons with custom or random shapes, 
@@ -27,25 +27,27 @@ public class PuzzleGenerator {
 
 	private PuzzleDisplay display;
 	private ConvexPolygonFactory polygonFactory;
-	private ConvexPolygonValidator convexValidator;
-	private InsidePolygonValidator insideValidator;
+	private List<Validator> newPointValidators;
+	private List<Validator> testPointValidators;
+
 	private Pattern pattern;
 
+
 	/**
-	 * @param inputStream
-	 * @param display
-	 * @param polygonFactory
-	 * @param convexValidator
-	 * @param insideValidator
+	 * @param inputStream			
+	 * @param display				
+	 * @param polygonFactory		
+	 * @param newPointValidators
+	 * @param testPointValidators
 	 */
 	public PuzzleGenerator(InputStream inputStream, PuzzleDisplay display, ConvexPolygonFactory polygonFactory,
-			ConvexPolygonValidator convexValidator, InsidePolygonValidator insideValidator) {
+			List<Validator> newPointValidators, List<Validator> testPointValidators) {
 
 		this.inputStream = inputStream;
 		this.display = display;
 		this.polygonFactory = polygonFactory;
-		this.convexValidator = convexValidator;
-		this.insideValidator = insideValidator;
+		this.newPointValidators = newPointValidators;
+		this.testPointValidators = testPointValidators;
 		pattern = Pattern.compile(REGEX);
 	}
 
@@ -55,64 +57,53 @@ public class PuzzleGenerator {
 	public void createCustomPuzzle(Scanner scanner) {
 		Polygon polygon = new Polygon();
 		display.promptInputPointBeforeValidShape(polygon.size() + 1);
+		
 		boolean isFinalized = false;
+		boolean isValid = false;
 
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
-
+			String[] tokens = line.split("\\s");
+			
 			try {
-				if (!line.startsWith("#")) {
-					// The line should be coordinates - need validate
-					if (!pattern.matcher(line).matches()) {
-						display.wrongInput();
-						continue;
+				if (line.startsWith("#")) {
+					if (isFinalized) {				
+						break;
 					}
-
-					String[] tokens = line.split("\\s");
-					Point point = new Point(Integer.parseInt(tokens[0].trim()), Integer.parseInt(tokens[1].trim()));
-
-					if (isFinalized) {
-						boolean isWithin = insideValidator.validate(polygon, point);
-						display.promptCheckResult(isWithin, point, polygon);
-					} else {
-						if (polygon.hasPoint(point)) {
-							display.promptInvalidPoint(point);
-							display.promptIncompleteShape(polygon);
-							continue;
-						}
-
-						// Append the point to the polygon
-						polygon.addPoint(point);
-
-						if (polygon.size() > 2 && !convexValidator.validate(polygon)) {
-							display.promptInvalidPoint(point);
-							// Need remove it as it is not able to form a convex polygon
-							polygon.removeLast();
-							display.promptCompleteShape(polygon);
-							continue;
-						}
-
-						if (polygon.size() < 3) {
-							display.promptIncompleteShape(polygon);
-						} else {
-							display.promptCompleteShape(polygon);
-						}
-					}
-				} else {
-					// token start with #
-					if (isFinalized) {
-						// exit game				
-						return;
-						
-					} else {
+					else {
+						isFinalized = true;
 						display.promptFinalShape(polygon);
 						display.promptTestCoordinate();
-						isFinalized = true;
 					}
 				}
-			} catch (Exception e) {
-				display.wrongInput();
+				else {
+					// should be in (X Y) coordinate format
+					if (pattern.matcher(line).matches()) {
+						Point point = new Point(Integer.parseInt(tokens[0].trim()), Integer.parseInt(tokens[1].trim()));
+						
+						if (isFinalized) {
+							isValid = testPointValidators.stream().allMatch(v -> v.validate(polygon, point) == true); 
+							display.promptCheckResult(isValid, point, polygon);
+						}
+						else {	
+							if (polygon.size() >= 2) {
+								isValid = newPointValidators.stream().allMatch(v -> v.validate(polygon, point) == true);
+							}
+							else {
+								isValid = !polygon.hasPoint(point);
+							}
+							if (isValid) polygon.addPoint(point);
+							display.promptNewPoint(isValid, point, polygon);
+						}
+					}
+					else {
+						display.wrongInput();
+					}										
+				}					
 			}
+			catch (Exception e) {
+				display.wrongInput();
+			}			
 		}
 
 	}
@@ -137,7 +128,7 @@ public class PuzzleGenerator {
 				String[] tokens = line.split("\\s");
 				Point point = new Point(Integer.parseInt(tokens[0].trim()), Integer.parseInt(tokens[1].trim()));
 
-				boolean isWithin = insideValidator.validate(polygon, point);
+				boolean isWithin = testPointValidators.stream().allMatch(v -> v.validate(polygon, point) == true);
 				display.promptCheckResult(isWithin, point, polygon);
 			} else {
 				return;
@@ -150,13 +141,13 @@ public class PuzzleGenerator {
 		Scanner scanner = new Scanner(inputStream);
 		try {
 			int choice = Integer.parseInt(scanner.nextLine());
-	
+
 			switch (choice) {
 			case CUSTOM:
 				// Create custom polygon
 				createCustomPuzzle(scanner);
 				break;
-	
+
 			case RANDOM:
 				createRandomPuzzle(scanner);
 				break;
@@ -165,13 +156,11 @@ public class PuzzleGenerator {
 				return;
 			}
 
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			display.wrongInput();
-		}
-		finally {
+		} finally {
 			scanner.close();
 			display.promptGameEnd();
-		}		
+		}
 	}
 }

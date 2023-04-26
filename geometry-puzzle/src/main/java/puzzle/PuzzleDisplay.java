@@ -42,31 +42,32 @@ public class PuzzleDisplay {
 		printStream.printf("\n");
 		promptTestCoordinate();
 	}
-	
-	public void promptIncompleteShape(Polygon polygon) {
-		printStream.printf("You current shape is incomplete\n");
-		showPolygon(polygon);
-		printStream.printf("Please enter coordinates %d in x y format\n", polygon.size() + 1);
-	}
-	
-	public void promptCompleteShape(Polygon polygon) {
-		printStream.printf("You current shape is valid and is complete\n");
-		showPolygon(polygon);
-		printStream.printf("Please enter # to finalize your shape or enter coordinates %d in x y format\n", 
-				polygon.size() + 1);		
-	}
-	
+		
 	public void promptFinalShape(Polygon polygon) {
 		printStream.printf("Your finalized shape is\n");
 		showPolygon(polygon);
 		printStream.printf("\n");
 	}
-	
-	public void promptInvalidPoint(Point point) {
-		printStream.printf("New coordinates() is invalid!!!\n" +
-				"Not adding new coordinates to the current shape.\n\n", point.getX(), point.getY());			
-	}
  	
+	public void promptNewPoint(boolean isValid, Point point, Polygon polygon) {
+		if (!isValid) { 
+			printStream.printf("New coordinates(%d,%d) is invalid!!!\n" +
+					"Not adding new coordinates to the current shape.\n\n", point.getX(), point.getY());	
+		}
+		
+		if (polygon.size() > 2) {
+			printStream.printf("You current shape is valid and is complete\n");
+			showPolygon(polygon);
+			printStream.printf("Please enter # to finalize your shape or enter coordinates %d in x y format\n", 
+					polygon.size() + 1);		
+		}
+		else {
+			printStream.printf("You current shape is incomplete\n");
+			showPolygon(polygon);
+			printStream.printf("Please enter coordinates %d in x y format\n", polygon.size() + 1);
+		}
+	}
+	
 	public void promptCheckResult(boolean isWithin, Point point, Polygon polygon) {		
 		promptFinalShape(polygon);
 		if (isWithin) 

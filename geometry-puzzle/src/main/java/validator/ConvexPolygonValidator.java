@@ -8,9 +8,16 @@ import shape.Point;
  * of any two adjacent sides of the polygon are same or not. 
  * If found to be true, it is convex polygon 
  */
-public class ConvexPolygonValidator {
+public class ConvexPolygonValidator implements Validator {
 	
-    public boolean validate(Polygon polygon) {
+	@Override
+	public boolean validate(Polygon polygon, Point p) {
+		Polygon newPolygon = new Polygon(polygon.coordinates());
+		newPolygon.addPoint(p);
+		return isConvext(newPolygon);
+	}
+	
+    public boolean isConvext(Polygon polygon) {
         int size = polygon.size();
         if (size < 3) return false;
 

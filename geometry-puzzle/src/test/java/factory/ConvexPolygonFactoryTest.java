@@ -24,7 +24,7 @@ class ConvexPolygonFactoryTest {
 	@Test
 	void testRandomConvexPolygon() {		
 		Polygon polygon = convexPolygonFactory.create();	
-		assertTrue(convexValidator.validate(polygon));
+		assertTrue(convexValidator.isConvext(polygon));
 	}
 	
 	@Test
